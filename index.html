@@ -26,7 +26,7 @@
         .tab-content.active {
             display: block;
         }
-        a {
+        .a {
     		display: inline-block;
     		padding: 10px 20px;
     		background-color: #007BFF; /* Blue color */
@@ -61,9 +61,13 @@
     </div>
 
     <div class="tab-content" id="content1">
+    <input type="text" id="searchInput" oninput="filterLinks()">
+
         <!-- Content for High School -->
     </div>
     <div class="tab-content" id="content2">
+    <input type="text" id="searchInput" oninput="filterLinks()">
+
         <!-- Content for Middle School -->
     </div>
     <div class="tab-content" id="content3">
@@ -117,7 +121,7 @@
                         const tabContent = document.getElementById('content' + tabNumberFromBuilding(building));
                         if (tabContent) {
                             const hyperlink = document.createElement('a');
-                            hyperlink.href = 'ipp://printerserver/printers/' + printerName; // Adds the printer's URL
+                            hyperlink.href = 'ipp://print-server/printers/' + printerName; // Adds the printer's URL
                             hyperlink.textContent = printerName + `\n`;
                             tabContent.appendChild(hyperlink);
                         }
@@ -146,6 +150,24 @@
                     return 0; // Default to the first tab
             }
         }
+        
+        function filterLinks() {
+    		const searchInput = document.getElementById("searchInput");
+    		const searchText = searchInput.value.toLowerCase();
+   		 	const tabContents = document.querySelectorAll('.tab-content a');
+		
+    		tabContents.forEach(link => {
+        		const linkText = link.textContent.toLowerCase();
+        		if (linkText.includes(searchText)) {
+            		link.style.display = 'block';
+        		} else {
+            		link.style.display = 'none';
+        		}
+    		});
+		}
+
+// Initially, show all links
+filterLinks();
 
         // Load CSV data when the page loads
         window.onload = loadCSVData;
