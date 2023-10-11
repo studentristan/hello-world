@@ -62,6 +62,7 @@
     </div>
 
     <script>
+    
         function openTab(tabIndex) {
             // Hide all tab content and remove the "active" class from all tabs
             const tabContents = document.querySelectorAll('.tab-content');
@@ -95,7 +96,7 @@
                         const tabContent = document.getElementById('content' + tabNumberFromBuilding(building));
                         if (tabContent) {
                             const hyperlink = document.createElement('a');
-                            hyperlink.href = '#'; // Add the appropriate URL
+                            hyperlink.href = 'ipp://printerserver/printers/' + printerName; // Adds the printer's URL
                             hyperlink.textContent = printerName;
                             tabContent.appendChild(hyperlink);
                         }
