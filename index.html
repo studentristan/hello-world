@@ -1,20 +1,132 @@
 <!DOCTYPE html>
-
-<html>
+<html lang="en">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-  <title>SUPERAWESOMEWEBSITEOFCOOLNESS</title>
-  <LINK href="styles.css" rel="stylesheet" type="text/css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tabbed Navigation</title>
+    <style>
+        /* CSS for tabbed navigation */
+        .tabs {
+            display: flex;
+        }
+        .tab {
+            flex: 1;
+            padding: 10px;
+            text-align: center;
+            background-color: #f0f0f0;
+            cursor: pointer;
+        }
+        .tab.active {
+            background-color: #007BFF; /* Change the background color of the active tab */
+            color: #fff; /* Change the text color of the active tab */
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+    </style>
 </head>
- 
 <body>
+    <div class="tabs">
+        <div class="tab" onclick="openTab(1)">High School</div>
+        <div class="tab" onclick="openTab(2)">Middle School</div>
+        <div class="tab" onclick="openTab(3)">Lincoln</div>
+        <div class="tab" onclick="openTab(4)">Central</div>
+        <div class="tab" onclick="openTab(5)">Sheridan</div>
+        <div class="tab" onclick="openTab(6)">Ottawa</div>
+        <div class="tab" onclick="openTab(7)">Spitler Administration</div>
+    </div>
 
-<h1>
-  Hello World! I am studentristan and this is my first page using GitHub!
+    <div class="tab-content" id="content1">
+        <!-- Content for High School -->
+    </div>
+    <div class="tab-content" id="content2">
+        <!-- Content for Middle School -->
+    </div>
+    <div class="tab-content" id="content3">
+        <!-- Content for Lincoln -->
+    </div>
+    <div class="tab-content" id="content4">
+        <!-- Content for Central -->
+    </div>
+    <div class="tab-content" id="content5">
+        <!-- Content for Sheridan -->
+    </div>
+    <div class="tab-content" id="content6">
+        <!-- Content for Ottawa -->
+    </div>
+    <div class="tab-content" id="content7">
+        <!-- Content for Spitler Administration -->
+    </div>
 
-</h1>
-<p>
-  This is my first time coding a basic website using HTML. I am completing this tutorial for my Software Development class. 
-</p>
+    <script>
+        function openTab(tabIndex) {
+            // Hide all tab content and remove the "active" class from all tabs
+            const tabContents = document.querySelectorAll('.tab-content');
+            tabContents.forEach((content) => {
+                content.style.display = 'none';
+            });
+            const tabs = document.querySelectorAll('.tab');
+            tabs.forEach((tab) => {
+                tab.classList.remove('active');
+            });
+
+            // Show the selected tab content and add the "active" class to the selected tab
+            const selectedTab = document.getElementById('content' + tabIndex);
+            if (selectedTab) {
+                selectedTab.style.display = 'block';
+                tabs[tabIndex - 1].classList.add('active');
+            }
+        }
+
+        // Show the first tab by default
+        openTab(1);
+
+        // Function to load CSV data and create hyperlinks
+        function loadCSVData() {
+            fetch('your-data.csv')
+                .then(response => response.text())
+                .then(data => {
+                    const rows = data.split('\n');
+                    rows.forEach(row => {
+                        const [building, printerName] = row.split(',');
+                        const tabContent = document.getElementById('content' + tabNumberFromBuilding(building));
+                        if (tabContent) {
+                            const hyperlink = document.createElement('a');
+                            hyperlink.href = '#'; // Add the appropriate URL
+                            hyperlink.textContent = printerName;
+                            tabContent.appendChild(hyperlink);
+                        }
+                    });
+                });
+        }
+
+        // Helper function to map building names to tab numbers
+        function tabNumberFromBuilding(building) {
+            switch (building) {
+                case 'High School':
+                    return 1;
+                case 'Middle School':
+                    return 2;
+                case 'Lincoln':
+                    return 3;
+                case 'Central':
+                    return 4;
+                case 'Sheridan':
+                    return 5;
+                case 'Ottawa':
+                    return 6;
+                case 'Spitler Administration':
+                    return 7;
+                default:
+                    return 0; // Default to the first tab
+            }
+        }
+
+        // Load CSV data when the page loads
+        window.onload = loadCSVData;
+    </script>
 </body>
 </html>
