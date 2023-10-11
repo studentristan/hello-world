@@ -97,7 +97,7 @@
                         if (tabContent) {
                             const hyperlink = document.createElement('a');
                             hyperlink.href = 'ipp://printerserver/printers/' + printerName; // Adds the printer's URL
-                            hyperlink.textContent = printerName;
+                            hyperlink.textContent = printerName + `\n`;
                             tabContent.appendChild(hyperlink);
                         }
                     });
